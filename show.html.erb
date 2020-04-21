@@ -1,0 +1,44 @@
+<p>
+  <strong>Title:</strong>
+  <%= @movie.title %>
+</p>
+
+<p>
+  <strong>Information:</strong>
+  <%= @movie.information%>
+</p>
+
+<h3>Comments</h3>
+<% @movie.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>  
+ </p>
+  <p>
+     <%= link_to 'Destroy Comment', [comment.movie, comment], method: :delete, data:{confirm: 'Are you sure?' } %>
+  </p>
+
+<% end %>
+
+<h3>Add a comment:</h3>
+<%= form_for([@movie, @movie.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>  
+ </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', movies_path %>
+<%= link_to 'Edit', edit_movie_path(@movie) %>
